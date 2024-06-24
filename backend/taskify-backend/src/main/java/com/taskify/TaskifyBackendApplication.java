@@ -16,17 +16,25 @@ public class TaskifyBackendApplication {
 	}
 
 	public static void main(String[] args) {
-		String activeProfile = System.getProperty("spring.profiles.active", "development");
+		String activeProfile = System.getProperty("spring.profiles.active", "production");
 		Dotenv dotenv = Dotenv.configure()
-                              .directory(".")
-                              .filename(".env." + activeProfile)
-                              .load();
-
-        dotenv.entries().forEach(
-			entry -> System.setProperty(entry.getKey(), entry.getValue())
-		);
-
+							  .directory(".")
+							  .filename(".env")
+							  .load();
+	
+		// Print out all entries from dotenv to verify
+		System.out.println("Loaded environment variables:");
+		dotenv.entries().forEach(entry -> {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			System.out.println(key + "=" + value);
+	
+			// Set system property if needed
+			System.setProperty(key, value);
+		});
+	
 		SpringApplication.run(TaskifyBackendApplication.class, args);
 	}
-
+	
+	
 }
