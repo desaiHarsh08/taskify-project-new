@@ -1,0 +1,440 @@
+{
+    "type": "SERVICE_TASK",
+    "task_functions": [
+        {
+            "function_title": "Prepare Job Card",
+            "function_description": "Creating a job card outlining the details of a specific task or project, including objectives, instructions, and timelines, to guide the assigned personnel in their duties.",
+            "function_department": "SERVICE",
+            "function_fields": [
+                {
+                    "ff_title": "Site Inspection Costs",
+                    "ff_description": "Calculating the costs associated with conducting site inspections, encompassing expenses such as travel, labor, equipment, and documentation.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Name of Party"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "POC Name"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "ADDRESS",
+                            "large_text": true
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Contact Number"
+                        },
+                        {
+                            "type": "FILE",
+                            "name": "Job Details List"
+                        },
+                        {
+                            "type": "NUMBER",
+                            "name": "Estimate Cost"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Shiva Associate Name"
+                        },
+                        {
+                            "type": "DATE",
+                            "name": "Date"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Site Inspection",
+            "function_description": "Conducting an on-site inspection to assess the condition, requirements, and any potential issues related to a specific location or project.",
+            "function_department": "SERVICE",
+            "function_fields": [
+                {
+                    "ff_title": "Location",
+                    "ff_description": "The physical or geographical area where an event, activity, or object is situated or will take place.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Shiva Associate Name"
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Notes",
+                    "ff_description": "Add notes, if any.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Notes",
+                            "large_text": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Create Job Number",
+            "function_description": "Generating a unique job number to serve as an identifier for tracking and managing specific tasks, projects, or orders within a system or organization.",
+            "function_department": "SERVICE",
+            "function_fields": [
+                {
+                    "ff_title": "Job Information",
+                    "ff_description": "Information pertaining to a specific job, including details such as job title, description, requirements, and any other relevant data necessary for its execution or management.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Job Number",
+                            "unique": true,
+                            "auto_assign": true
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Name of Party"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "POC Name"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "POC Name"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Address",
+                            "large_text": true
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Phone Number"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Pump Type"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Pump Serial Number"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Motor Type"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Motor Serial Number"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Number of Stage"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "H.P."
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "M.O.S"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Cable Size"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Length"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Withdrawn By"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Pump / Motor Received vide Party's Challan No."
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Pump Images and Inventory of accessories attached",
+                    "ff_description": "Compiling images of pumps and an inventory of associated accessories, detailing their availability and specifications for reference or procurement purposes.",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Attach Images",
+                            "multiple_files": true
+                        },
+                        {
+                            "type": "FILE",
+                            "name": "List of Accessories",
+                            "multiple_files": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Parts Procurement",
+            "function_description": "The process of acquiring necessary parts or components for a project or operation, involving sourcing, purchasing, and managing inventory to ensure timely availability and smooth execution.",
+            "function_department": "SERVICE",
+            "function_fields": [
+                {
+                    "ff_title": "Parts Procurement",
+                    "ff_description": "Parts Procurement",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Bill No."
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Vendor Name"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Part Name"
+                        },
+                        {
+                            "type": "NUMBER",
+                            "name": "Quantity"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Job Number"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Repair Status",
+            "function_description": "The current condition or progress of repairs being conducted on a particular item, equipment, or system, indicating whether it is in process, completed, or awaiting further action.",
+            "function_department": "SERVICE",
+            "choice": true,
+            "function_fields": [
+                {
+                    "ff_title": "Dismantle",
+                    "ff_description": "To dismantle is to take apart or disassemble a structure, machine, or device into its component parts.",
+                    "ff_columns": []
+                },
+                {
+                    "ff_title": "Prepare Estimate",
+                    "ff_description": "Creating an estimate involves compiling costs for materials, labor, and other expenses to provide a projected cost for a project or service.",
+                    "ff_columns": [
+                        { "type": "STRING", "name": "Repair Estimate No." },
+                        { "type": "DATE", "name": "Date" },
+                        { "type": "STRING", "name": "Repair Estimate (Rs.)" },
+                        { "type": "NUMBER", "name": "Gaurantee Period (Yes/No)" }
+                    ]
+                },
+                {
+                    "ff_title": "Pending Approval",
+                    "ff_description": "The status indicating that a request, document, or action is awaiting approval from the relevant authority or stakeholder before proceeding further.",
+                    "ff_columns": [
+                        { "type": "STRING", "name": "Repair Estimate No." },
+                        { "type": "DATE", "name": "Date" },
+                        { "type": "STRING", "name": "Repair Estimate (Rs.)" },
+                        { "type": "NUMBER", "name": "Gaurantee Period (Yes/No)" },
+                        { "type": "BOOLEAN", "name": "Follow up with Customer (Done?)" },
+                        { "type": "BOOLEAN", "name": "Follow up with Customer (Done?)" },
+                        { "type": "STRING", "name": "Notes", "large_text": true },
+                        { "type": "DATE", "name": "Next Follow-up date" }
+                    ]
+                },
+                {
+                    "ff_title": "Work In Progress",
+                    "ff_description": "'Work in progress' refers to task that is currently underway.",
+                    "ff_columns": []
+                },
+                {
+                    "ff_title": "Blocked",
+                    "ff_description": "'Blocked' typically refers to a situation where progress on a task is hindered or halted due to some issue or dependency that needs to be resolved before work can continue.",
+                    "ff_columns": []
+                },
+                {
+                    "ff_title": "Quality Inspection",
+                    "ff_description": "Quality inspection involves assessing products or processes to ensure they meet predefined standards and specifications, aiming to identify defects or deviations that may impact quality.",
+                    "ff_columns": [
+                        { "type": "FILE", "name": "Testing Notes" },
+                        { "type": "FILE", "name": "Report" },
+                        { "type": "STRING", "name": "R" },
+                        { "type": "STRING", "name": "Y" },
+                        { "type": "STRING", "name": "B" },
+                        { "type": "STRING", "name": "Pump" },
+                        { "type": "STRING", "name": "Motor" }
+                    ]
+                },
+                {
+                    "ff_title": "Paint",
+                    "ff_description": "",
+                    "ff_columns": []
+                },
+                {
+                    "ff_title": "Ready",
+                    "ff_description": "Ready",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Attach Video",
+                            "forward_file": "USER_EMAIL"
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Reject",
+                    "ff_description": "Reject",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Reason",
+                            "large_text": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Prepare Proforma Invoice ",
+            "function_description": "Generating a proforma invoice detailing the cost of goods or services prior to their delivery or completion, often used for customs or preliminary payment purposes.",
+            "function_department": "SERVICE",
+            "function_fields": [
+                {
+                    "ff_title": "Send to Customer",
+                    "ff_description": "Send to Customer",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Attach Proforma Invoice",
+                            "forward_file": "USER_EMAIL"
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Send to Accounts",
+                    "ff_description": "Send to Accounts",
+                    "ff_columns": [
+                        { "type": "FILE", "name": "Attach Proforma Invoice", "forward_file": "USER_EMAIL" },
+                        { "type": "STRING", "name": "Make" },
+                        { "type": "STRING", "name": "Model" },
+                        { "type": "STRING", "name": "Quantity" },
+                        { "type": "STRING", "name": "Order No." },
+                        { "type": "FILE", "name": "Other Pump Specifications" }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Confirm Payment",
+            "function_description": "Confirming the receipt of payment for the proforma invoice in the accounts records.",
+            "function_department": "ACCOUNTS",
+            "function_fields": [
+                {
+                    "ff_title": "Confirmation",
+                    "ff_description": "Confirmation",
+                    "ff_columns": [
+                        {
+                            "type": "BOOLEAN",
+                            "name": "Received"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Follow-up on Payment",
+            "function_description": "Initiating a follow-up procedure to inquire about the status of pending payments and ensure timely resolution.",
+            "function_department": "SERVICE",
+            "function_fields": [
+                {
+                    "ff_title": "Notes",
+                    "ff_description": "Add notes, if any.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Notes",
+                            "large_text": true
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Next follow-Up date",
+                    "ff_description": "Scheduling the next follow-up date to ensure continued communication and progress tracking.",
+                    "ff_columns": [
+                        {
+                            "type": "DATE",
+                            "name": "Date"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Prepare Challan",
+            "function_description": "Creating a challan involves generating a document that lists details of goods being transported, typically including quantity, description, destination, and other relevant information for regulatory or tracking purposes.",
+            "function_department": "DISPATCH",
+            "function_fields": [
+                {
+                    "ff_title": "Prepare Challan",
+                    "ff_description": "Prepare Challan",
+                    "ff_columns": [
+                        { "type": "FILE", "name": "Attach Challan" },
+                        { "type": "STRING", "name": "Driver Name" },
+                        { "type": "STRING", "name": "Vehicle Number" },
+                        { "type": "DATE", "name": "Delivery Date" }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Pick-up Pump",
+            "function_description": "The customer is responsible for collecting the pump from the specified location.",
+            "function_department": "CUSTOMER",
+            "function_fields": [
+                {
+                    "ff_title": "Pick-up Pump",
+                    "ff_description": "Pick-up Pump",
+                    "ff_columns": [
+                        { "type": "BOOLEAN", "name": "Confirmation, Done?" }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Vendor Cost",
+            "function_description": "Vendor cost refers to the expenses associated with procuring goods or services from a supplier, including the purchase price, shipping fees, taxes, and any additional charges incurred in the acquisition process.",
+            "function_department": "SERVICE",
+            "function_fields": [
+                {
+                    "ff_title": "Vendor Cost",
+                    "ff_description": "Vendor Cost",
+                    "ff_columns": [
+                        { "type": "STRING", "name": "Vendor Name" },
+                        { "type": "STRING", "name": "Bill / Invoice No." },
+                        { "type": "STRING", "name": "Description of Goods and Service", "large_text": true },
+                        { "type": "STRING", "name": "Job Number" },
+                        { "type": "NUMBER", "name": "Amount (in Rs.)" }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Create Floor Chart",
+            "function_description": "Create Floor Chart",
+            "function_department": "SERVICE",
+            "function_fields": [
+                {
+                    "ff_title": "Vendor Cost",
+                    "ff_description": "Vendor Cost",
+                    "ff_columns": [
+                        { "type": "STRING", "name": "Worker Name" },
+                        { "type": "STRING", "name": "Job Number" },
+                        { "type": "STRING", "name": "Status" },
+                        { "type": "STRING", "name": "Notes", "large_text": true }
+                    ]
+                }
+            ]
+        }
+    ]
+}

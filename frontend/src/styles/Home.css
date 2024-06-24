@@ -1,0 +1,38 @@
+#main-container {
+    height: calc(100% - 52.75px);
+}
+
+/* table {
+    width: 1509px !important;
+} */
+#task-container {
+    overflow: hidden;
+}
+
+ @media (max-width: 767px) {
+    .col-0 {
+        display: none;
+    }
+    #home-default {
+        overflow: auto;
+    }
+    .my-row {
+        gap: 0 !important;
+    }
+    #task-container {
+        overflow: auto;
+    }
+    
+ }
+
+ 
+
+ @media (max-width: 575px) {
+    #task-container {
+        /* display: flex; */
+        /* flex-direction: column-reverse !important; */
+    }
+    
+ }
+
+

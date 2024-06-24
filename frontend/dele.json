@@ -1,0 +1,119 @@
+{
+    "functionTitle": "Prepare Job Card",
+    "functionDescription": "Creating a job card outlining the details of a specific task or project, including objectives, instructions, and timelines, to guide the assigned personnel in their duties.",
+    "functionDepartment": "SERVICE",
+    "addedDate": "2024-06-16T12:16:06.665Z",
+    "dueDate": "2024-06-16T12:16:06.665Z",
+    "lastEdited": "2024-06-16T12:16:06.665Z",
+    "taskId": 2,
+    "functionFields": [
+        {
+            "fieldTitle": "Site Inspection Costs",
+            "fieldDescription": "Calculating the costs associated with conducting site inspections, encompassing expenses such as travel, labor, equipment, and documentation.",
+            "functionId": 0,
+            "fieldCreated": "2024-06-16T12:16:06.665Z",
+            "lastEdited": "2024-06-16T12:16:06.665Z",
+            "fieldColumns": [
+                {
+                    "type": "STRING",
+                    "name": "Name of Party",
+                    "value": "Harsh Desai",
+                    "forwardFileToEmail": null,
+                    "largeText": false,
+                    "unique": false,
+                    "autoAssign": false,
+                    "multipleFiles": false,
+                    "functionFieldId": 0,
+                    "lastEdited": "2024-06-16T12:16:06.665Z"
+                },
+                {
+                    "type": "STRING",
+                    "name": "POC Name",
+                    "value": "Harsh Desai",
+                    "forwardFileToEmail": null,
+                    "largeText": false,
+                    "unique": false,
+                    "autoAssign": false,
+                    "multipleFiles": false,
+                    "functionFieldId": 0,
+                    "lastEdited": "2024-06-16T12:16:06.665Z"
+                },
+                {
+                    "type": "STRING",
+                    "name": "ADDRESS",
+                    "value": "Nandanvan\nKDK College road",
+                    "forwardFileToEmail": null,
+                    "largeText": false,
+                    "unique": false,
+                    "autoAssign": false,
+                    "multipleFiles": false,
+                    "functionFieldId": 0,
+                    "lastEdited": "2024-06-16T12:16:06.665Z"
+                },
+                {
+                    "type": "STRING",
+                    "name": "Contact Number",
+                    "value": "09322585046",
+                    "forwardFileToEmail": null,
+                    "largeText": false,
+                    "unique": false,
+                    "autoAssign": false,
+                    "multipleFiles": false,
+                    "functionFieldId": 0,
+                    "lastEdited": "2024-06-16T12:16:06.665Z"
+                },
+                {
+                    "type": "FILE",
+                    "name": "Job Details List",
+                    "value": null,
+                    "forwardFileToEmail": null,
+                    "largeText": false,
+                    "unique": false,
+                    "autoAssign": false,
+                    "multipleFiles": false,
+                    "functionFieldId": 0,
+                    "lastEdited": "2024-06-16T12:16:06.665Z",
+                    "files": [
+                        {}
+                    ]
+                },
+                {
+                    "type": "NUMBER",
+                    "name": "Estimate Cost",
+                    "value": "12",
+                    "forwardFileToEmail": null,
+                    "largeText": false,
+                    "unique": false,
+                    "autoAssign": false,
+                    "multipleFiles": false,
+                    "functionFieldId": 0,
+                    "lastEdited": "2024-06-16T12:16:06.665Z"
+                },
+                {
+                    "type": "STRING",
+                    "name": "Shiva Associate Name",
+                    "value": "Harsh Desai",
+                    "forwardFileToEmail": null,
+                    "largeText": false,
+                    "unique": false,
+                    "autoAssign": false,
+                    "multipleFiles": false,
+                    "functionFieldId": 0,
+                    "lastEdited": "2024-06-16T12:16:06.665Z"
+                },
+                {
+                    "type": "DATE",
+                    "name": "Date",
+                    "value": "2024-06-17",
+                    "forwardFileToEmail": null,
+                    "largeText": false,
+                    "unique": false,
+                    "autoAssign": false,
+                    "multipleFiles": false,
+                    "functionFieldId": 0,
+                    "lastEdited": "2024-06-16T12:16:06.665Z"
+                }
+            ]
+        }
+    ]
+}

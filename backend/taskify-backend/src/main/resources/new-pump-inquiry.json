@@ -1,0 +1,410 @@
+{
+    "type": "NEW_PUMP_INQUIRY",
+    "task_functions": [
+        {
+            "function_title": "Prepare Quotation",
+            "function_description": "Drafting a quotation based on the provided client details and requirements.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Pump Details (Depending on the type there are multiple templates)",
+                    "ff_description": "Recording pump specifications, with various templates tailored to different types.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Make"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Model"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Follow-Up for New Quotation ",
+            "function_description": "Initiating a follow-up process for a newly generated quotation to ensure timely response and address any inquiries or feedback.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Notes",
+                    "ff_description": "Add notes, if any.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Notes",
+                            "large_text": true
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Next follow-Up date",
+                    "ff_description": "Scheduling the next follow-up date to ensure continued communication and progress tracking.",
+                    "ff_columns": [
+                        {
+                            "type": "DATE",
+                            "name": "Date"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Check with Principal for Requirements",
+            "function_description": "Verifying with the principal to confirm the project's specific requirements or specifications.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Send Requirements",
+                    "ff_description": "Forwarding the requirements to the designated recipient for further action or review.",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Requirements File",
+                            "forward_file": "USER_EMAIL"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Follow-Up for Requirements with Principal",
+            "function_description": "Initiating a follow-up with the principal to confirm or clarify any outstanding requirements for the project.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Notes",
+                    "ff_description": "Add notes, if any.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Notes",
+                            "large_text": true
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Next follow-Up date",
+                    "ff_description": "Scheduling the next follow-up date to ensure continued communication and progress tracking.",
+                    "ff_columns": [
+                        {
+                            "type": "DATE",
+                            "name": "Date"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Verify Purchase Order",
+            "function_description": "Confirming the accuracy and validity of the purchase order against the agreed-upon terms and specifications.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Confirmation",
+                    "ff_description": "Is all okay?",
+                    "ff_columns": [
+                        {
+                            "type": "BOOLEAN",
+                            "name": "Okay"
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Request for amendment on Purchase Order",
+                    "ff_description": "Submitting a request for changes or amendments to be made on the existing purchase order to align with updated requirements or specifications.",
+                    "ff_columns": [
+                        {
+                            "type": "BOOLEAN",
+                            "name": "Okay"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Check in Stock",
+            "function_description": "Verifying the availability of items in the stock inventory to fulfill a request or order.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Availability",
+                    "ff_description": "Does the items are sufficient for completing the order?",
+                    "ff_columns": [
+                        {
+                            "type": "BOOLEAN",
+                            "name": "Sufficient"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Prepare Advance Payment Proforma Invoice",
+            "function_description": "Creating a proforma invoice requesting advance payment for goods or services prior to their delivery or completion.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Send to Customer",
+                    "ff_description": "Send to Customer",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Advance Payment Proforma Invoice",
+                            "forward_file": "USER_EMAIL"
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Send to Accounts",
+                    "ff_description": "Send to Accounts",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Advance Payment Proforma Invoice",
+                            "forward_file": "USER_EMAIL"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Confirm Advance Payment Received",
+            "function_description": "Verifying the reception of the advance payment and confirming its receipt in the accounts records.",
+            "function_department": "ACCOUNTS",
+            "function_fields": [
+                {
+                    "ff_title": "Confirmation",
+                    "ff_description": "Is Advance Payment Received?",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Advance Payment Receipt"
+                        },
+                        {
+                            "type": "BOOLEAN",
+                            "name": "Received"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Follow-Up on Payments",
+            "function_description": "Initiating a follow-up procedure to inquire about the status of pending payments and ensure timely resolution.",
+            "function_department": "ACCOUNTS",
+            "function_fields": [
+                {
+                    "ff_title": "Notes",
+                    "ff_description": "Add notes, if any.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Notes",
+                            "large_text": true
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Next follow-Up date",
+                    "ff_description": "Scheduling the next follow-up date to ensure continued communication and progress tracking.",
+                    "ff_columns": [
+                        {
+                            "type": "DATE",
+                            "name": "Date"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Place order to Principal",
+            "function_description": "Initiating the process of placing an order with the principal supplier or vendor for the required goods or services.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Order Number from Principal ",
+                    "ff_description": "Requesting the order number from the principal supplier or vendor for reference and tracking purposes.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Make"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Model"
+                        },
+                        {
+                            "type": "NUMBER",
+                            "name": "Quantity"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Order No."
+                        },
+                        {
+                            "type": "FILE",
+                            "name": "Other Pump Specifications"
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Estimated date of delivery ",
+                    "ff_description": "Estimated date of delivery ",
+                    "ff_columns": [
+                        {
+                            "type": "DATE",
+                            "name": "Date"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Prepare Gaurantee Card and Testing Certificate",
+            "function_description": "Creating the guarantee card and testing certificate to certify the quality and performance of the product, ensuring customer satisfaction and compliance with industry standards.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Attach files",
+                    "ff_description": "Attach files",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Gaurantee Card and Testing Certificate"
+                        },
+                        {
+                            "type": "Performance Curves",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Follow-Up with Principal for Placed order",
+            "function_description": "Initiating a follow-up with the principal supplier to confirm the status of the placed order and ensure timely processing and delivery.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Notes",
+                    "ff_description": "Add notes, if any.",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Notes",
+                            "large_text": true
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Next follow-Up date",
+                    "ff_description": "Scheduling the next follow-up date to ensure continued communication and progress tracking.",
+                    "ff_columns": [
+                        {
+                            "type": "DATE",
+                            "name": "Date"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Prepare Proforma Invoice ",
+            "function_description": "Generating a proforma invoice detailing the cost of goods or services prior to their delivery or completion, often used for customs or preliminary payment purposes.",
+            "function_department": "QUOTATION",
+            "function_fields": [
+                {
+                    "ff_title": "Send to Customer",
+                    "ff_description": "Send to Customer",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Attach Proforma Invoice",
+                            "forward_file": "USER_EMAIL"
+                        }
+                    ]
+                },
+                {
+                    "ff_title": "Send to Accounts",
+                    "ff_description": "Send to Accounts",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Attach Proforma Invoice",
+                            "forward_file": "USER_EMAIL"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Confirm Payment Received ",
+            "function_description": "Verifying the reception of the payment and confirming its receipt in the accounts records.",
+            "function_department": "ACCOUNTS",
+            "function_fields": [
+                {
+                    "ff_title": "Confirmation",
+                    "ff_description": "Is Payment Received?",
+                    "ff_columns": [
+                        {
+                            "type": "FILE",
+                            "name": "Payment Receipt"
+                        },
+                        {
+                            "type": "BOOLEAN",
+                            "name": "Received"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Create Challan",
+            "function_description": "Generating a challan document to accompany goods being transported, providing details such as quantity, description, and destination for regulatory or tracking purposes.",
+            "function_department": "DISPATCH",
+            "function_fields": [
+                {
+                    "ff_title": "Driver Name, Vehicle Number, Estimated Time and Date of delivery",
+                    "ff_description": "Driver Name, Vehicle Number, Estimated Time and Date of delivery",
+                    "ff_columns": [
+                        {
+                            "type": "STRING",
+                            "name": "Driver Name"
+                        },
+                        {
+                            "type": "STRING",
+                            "name": "Vehicle Number"
+                        },
+                        {
+                            "type": "DATE",
+                            "name": "Delivery Date"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "function_title": "Inform Customer",
+            "function_description": "Informing the customer about the assigned driver, vehicle details, and estimated time and date of delivery for their awareness and convenience.",
+            "function_department": "DISPATCH",
+            "function_fields": [
+                {
+                    "ff_title": "Inform Customer",
+                    "ff_description": "Inform Customer",
+                    "ff_columns": [
+                        {
+                            "type": "BOOLEAN",
+                            "name": "Done"
+                        },
+                        {
+                            "type": "DATE",
+                            "name": "Date"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
