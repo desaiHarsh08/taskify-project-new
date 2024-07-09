@@ -226,7 +226,7 @@
                         { "type": "STRING", "name": "Repair Estimate No." },
                         { "type": "DATE", "name": "Date" },
                         { "type": "STRING", "name": "Repair Estimate (Rs.)" },
-                        { "type": "NUMBER", "name": "Gaurantee Period (Yes/No)" }
+                        { "type": "STRING", "name": "Guarantee Period (Yes/No)" }
                     ]
                 },
                 {
@@ -236,7 +236,7 @@
                         { "type": "STRING", "name": "Repair Estimate No." },
                         { "type": "DATE", "name": "Date" },
                         { "type": "STRING", "name": "Repair Estimate (Rs.)" },
-                        { "type": "NUMBER", "name": "Gaurantee Period (Yes/No)" },
+                        { "type": "STRING", "name": "Guarantee Period (Yes/No)" },
                         { "type": "BOOLEAN", "name": "Follow up with Customer (Done?)" },
                         { "type": "BOOLEAN", "name": "Follow up with Customer (Done?)" },
                         { "type": "STRING", "name": "Notes", "large_text": true },

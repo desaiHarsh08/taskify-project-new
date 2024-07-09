@@ -29,6 +29,7 @@ import com.taskify.repositories.UserRepository;
 import com.taskify.services.ActivityLogServices;
 import com.taskify.services.FunctionServices;
 import com.taskify.services.TaskServices;
+import com.taskify.utils.ListResponse;
 import com.taskify.utils.TaskifyStats;
 
 @Service
@@ -65,15 +66,13 @@ public class TaskServicesImpl implements TaskServices {
         taskDto.setId(0L);
         TaskModel taskModel = this.taskDtoToModel(taskDto);
         UserModel createdByUser = this.userRepository.findById(taskDto.getCreatedByUserId()).orElseThrow(
-            () -> new ResourceNotFoundException("No user exist for id: " + taskDto.getCreatedByUserId())
-        );
+                () -> new ResourceNotFoundException("No user exist for id: " + taskDto.getCreatedByUserId()));
         UserModel assignUser = this.userRepository.findById(taskDto.getAssignedUserId()).orElseThrow(
-            () -> new ResourceNotFoundException("No user exist for id: " + taskDto.getCreatedByUserId())
-        );
+                () -> new ResourceNotFoundException("No user exist for id: " + taskDto.getCreatedByUserId()));
 
         taskModel.setCreatedByUser(createdByUser);
         taskModel.setAssignedUser(assignUser);
-        
+
         TaskDto createdTaskDto = this.taskModelToDto(this.taskRepository.save(taskModel));
 
         // Send email
@@ -114,24 +113,62 @@ public class TaskServicesImpl implements TaskServices {
         return body;
     }
 
+
+    //  public ListResponse<List<StudentDto>> getAllStudents(int pageNumber) {
+    //     if (pageNumber == 0) {
+    //         throw new IllegalArgumentException("Page number can't be less than 1.");
+    //     }
+
+    //     Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE);
+
+    //     Page<StudentModel> studentPage = this.studentRepository.findAll(pageable);
+
+    //     List<StudentModel> studentModelList = studentPage.getContent();
+
+    //     // Prepare the response
+    //     ListResponse<List<StudentDto>> listResponse = new ListResponse(
+    //             pageNumber,
+    //             PAGE_SIZE,
+    //             studentPage.getTotalPages(),
+    //             studentPage.getTotalElements(),
+    //             this.stundentModelListToDtoList(studentModelList));
+
+    //     return listResponse;
+    // }
+
     @Override
-    public List<TaskDto> getAllTask(int pageNumber) {
+    public ListResponse<List<TaskDto>> getAllTask(int pageNumber) {
         Pageable pageable = this.getPageable(pageNumber);
         Page<TaskModel> taskPage = this.taskRepository.findAll(pageable);
 
-        return taskPage.stream()
-                .map(this::taskModelToDto)
-                .collect(Collectors.toList());
+        List<TaskModel> taskModelList = taskPage.getContent();
+
+        ListResponse<List<TaskDto>> listResponse = new ListResponse(
+                pageNumber,
+                PAGE_SIZE,
+                taskPage.getTotalPages(),
+                taskPage.getTotalElements(),
+                this.taskModeListToDtoList(taskModelList));
+
+
+        return listResponse;
     }
 
     @Override
-    public List<TaskDto> getTasksByType(String taskType, int pageNumber) {
+    public ListResponse<List<TaskDto>> getTasksByType(String taskType, int pageNumber) {
         Pageable pageable = this.getPageable(pageNumber);
         Page<TaskModel> taskPage = this.taskRepository.findByTaskTypeOrderByTaskTypeDesc(taskType, pageable);
 
-        return taskPage.stream()
-                .map(this::taskModelToDto)
-                .collect(Collectors.toList());
+        List<TaskModel> taskModelList = taskPage.getContent();
+
+        ListResponse<List<TaskDto>> listResponse = new ListResponse(
+                pageNumber,
+                PAGE_SIZE,
+                taskPage.getTotalPages(),
+                taskPage.getTotalElements(),
+                this.taskModeListToDtoList(taskModelList));
+
+        return listResponse;
     }
 
     public TaskifyStats getStats() {
@@ -156,14 +193,21 @@ public class TaskServicesImpl implements TaskServices {
     }
 
     @Override
-    public List<TaskDto> getTasksByPriority(String taskPriority, int pageNumber) {
+    public ListResponse<List<TaskDto>> getTasksByPriority(String taskPriority, int pageNumber) {
         Pageable pageable = this.getPageable(pageNumber);
         Page<TaskModel> taskPage = this.taskRepository.findByTaskPriorityOrderByTaskPriorityDesc(taskPriority,
                 pageable);
 
-        return taskPage.stream()
-                .map(this::taskModelToDto)
-                .collect(Collectors.toList());
+        List<TaskModel> taskModelList = taskPage.getContent();
+
+        ListResponse<List<TaskDto>> listResponse = new ListResponse(
+                pageNumber,
+                PAGE_SIZE,
+                taskPage.getTotalPages(),
+                taskPage.getTotalElements(),
+                this.taskModeListToDtoList(taskModelList));
+
+        return listResponse;
     }
 
     @Override
@@ -173,7 +217,9 @@ public class TaskServicesImpl implements TaskServices {
         Pageable pageable = this.getPageable(pageNumber);
         Page<TaskModel> taskPage = this.taskRepository.findByCustomerOrderByCustomerDesc(customerModel, pageable);
 
-        return taskPage.stream()
+        List<TaskModel> taskModelList = taskPage.getContent();
+
+        return taskModelList.stream()
                 .map(this::taskModelToDto)
                 .collect(Collectors.toList());
     }
@@ -191,13 +237,20 @@ public class TaskServicesImpl implements TaskServices {
     }
 
     @Override
-    public List<TaskDto> getCompletedTasks(int pageNumber) {
+    public ListResponse<List<TaskDto>> getCompletedTasks(int pageNumber) {
         Pageable pageable = this.getPageable(pageNumber);
         Page<TaskModel> taskPage = this.taskRepository.findByIsCompletedOrderByIsCompletedDesc(true, pageable);
 
-        return taskPage.stream()
-                .map(this::taskModelToDto)
-                .collect(Collectors.toList());
+        List<TaskModel> taskModelList = taskPage.getContent();
+
+        ListResponse<List<TaskDto>> listResponse = new ListResponse(
+                pageNumber,
+                PAGE_SIZE,
+                taskPage.getTotalPages(),
+                taskPage.getTotalElements(),
+                this.taskModeListToDtoList(taskModelList));
+
+        return listResponse;
     }
 
     @Override
@@ -211,23 +264,66 @@ public class TaskServicesImpl implements TaskServices {
     public TaskDto updateTask(TaskDto taskDto, Long taskId) {
         System.out.println("\n\n taskDto: " + taskDto);
 
-        if (this.getTaskById(taskId) != null) {
-            TaskModel taskModel = this.taskDtoToModel(taskDto);
+        TaskModel foundTaskModel = this.taskDtoToModel(this.getTaskById(taskId));
+        if (foundTaskModel != null) {
+            UserModel assignedUser = this.userRepository.findById(taskDto.getAssignedUserId()).orElseThrow(
+                    () -> new ResourceNotFoundException("No user exist for id: " + taskDto.getAssignedUserId()));
+
+            foundTaskModel.setCompletedDate(taskDto.getCompletedDate());
+            foundTaskModel.setIsCompleted(taskDto.getIsCompleted());
+            foundTaskModel.setProblemDescription(taskDto.getProblemDescription());
+            foundTaskModel.setPumpManufacturer(taskDto.getPumpManufacturer());
+            foundTaskModel.setPumpType(taskDto.getPumpType());
+            foundTaskModel.setRequirements(taskDto.getRequirements());
+            foundTaskModel.setSpecification(taskDto.getSpecification());
+            foundTaskModel.setTaskPriority(taskDto.getTaskPriority());
+
+            // If assigning the task to another user
+            if (!taskDto.getAssignedUserId().equals(foundTaskModel.getAssignedUser().getId())) {
+                foundTaskModel.setAssignedUser(assignedUser);
+
+            }
 
             // Create a log
             ActivityLogModel activityLogModel = new ActivityLogModel();
             activityLogModel.setDate(new Date());
             activityLogModel.setType("TASK");
             activityLogModel.setAction("UPDATE");
-            activityLogModel.setMessage("Task got updated by " + taskModel.getAssignedUser().getName());
+            activityLogModel.setMessage("Task got updated by " + foundTaskModel.getAssignedUser().getName());
 
             this.activityLogServices.createLog(activityLogModel);
 
-            return this.taskModelToDto(
-                    this.taskRepository.save(taskModel));
+            TaskDto updatedTaskDto = this.taskModelToDto(
+                    this.taskRepository.save(foundTaskModel));
+
+            UserModel createdUser = this.userRepository.findById(taskDto.getCreatedByUserId()).orElseThrow(
+                    () -> new ResourceNotFoundException("No user exist for id: " + taskDto.getAssignedUserId()));
+
+            String subject = "task#" + updatedTaskDto.getId() + " forwarded to you on Taskify";
+            String body = this.generateEmailBody(createdUser, foundTaskModel, assignedUser);
+            this.emailService.sendSimpleMessage(assignedUser.getEmail(), subject, body);
+
+            return updatedTaskDto;
         }
 
         return null;
+    }
+
+    public String generateEmailBody(UserModel createdUser, TaskModel taskModel, UserModel assignedUser) {
+        String body = "Dear " + assignedUser.getName() + ",\n\n" +
+                "We hope this message finds you well.\n\n" +
+                "We are pleased to inform you that a task has been forwarded to you on Taskify. Below are the details of the task and function:\n\n"
+                +
+                "Task Type     : " + taskModel.getTaskType() + "\n" +
+                "Task Priorrity: " + taskModel.getTaskPriority() + "\n" +
+                "Created By    : " + taskModel.getCreatedByUser().getName() + "\n\n" +
+                "Please log in to your Taskify account to review the task details and manage your workflow. Should you have any questions or require further information, feel free to reach out.\n\n"
+                +
+                "Thank you for your attention and cooperation.\n\n" +
+                "Best regards,\n\n" +
+                "Taskify Software";
+
+        return body;
     }
 
     @Override
@@ -236,8 +332,6 @@ public class TaskServicesImpl implements TaskServices {
         if (taskModel == null) {
             return false;
         }
-
-        
 
         // Delete all functions
         List<FunctionModel> functionModels = this.functionRepository.findByTask(taskModel);

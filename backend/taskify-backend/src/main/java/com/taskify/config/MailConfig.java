@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import com.taskify.constants.MailConstants;
-
 import io.github.cdimascio.dotenv.Dotenv;
 
 @Configuration
@@ -19,11 +17,11 @@ public class MailConfig {
         Dotenv dotenv = Dotenv.configure().load();
 
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(dotenv.get(MailConstants.AWS_REGION));
-        mailSender.setPort(MailConstants.AWS_SMTP_PORT);
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
 
-        mailSender.setUsername(dotenv.get(MailConstants.AWS_ACCESS_KEY_ID));
-        mailSender.setPassword(dotenv.get(MailConstants.AWS_SECRET_ACCESS_KEY));
+        mailSender.setUsername("otp-noreply@thebges.edu.in");
+        mailSender.setPassword("SnSAqqeSJHHU");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

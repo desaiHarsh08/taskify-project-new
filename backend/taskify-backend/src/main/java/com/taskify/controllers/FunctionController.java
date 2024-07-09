@@ -1,5 +1,7 @@
 package com.taskify.controllers;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.spi.ErrorMessage;
@@ -35,56 +37,64 @@ public class FunctionController {
     private FunctionServices functionServices;
 
     // @PostMapping(value = "", consumes = { "multipart/form-data" })
-    // public ResponseEntity<?> createFunction(@RequestBody FunctionRequest functionRequest) {
-    //     // System.out.println("" +object.toString());
-    //     // FunctionDto functionDto = (FunctionDto) object;
-    //     System.out.println(functionRequest.functionDto.toString());
-    //     // FunctionDto functionDto = (FunctionDto) object;
-    //     System.out.println("functionDto: " + functionRequest.functionDto);
-    //     try {
-    //         FunctionDto createdFunction = this.functionServices.createFunction(functionRequest.functionDto,
-    //                 functionRequest.fileDtos);
-    //         if (createdFunction != null) {
-    //             System.out.println("functionDto: " + functionRequest.functionDto);
-    //             return new ResponseEntity<>(createdFunction, HttpStatus.CREATED);
-    //         }
-    //         return new ResponseEntity<ErrorMessage>(
-    //                 new ErrorMessage("Function already exist"),
-    //                 HttpStatus.CONFLICT);
-    //     } catch (Exception e) {
-    //         System.out.println(e);
-    //         throw new IllegalArgumentException("test delete");
-    //     }
+    // public ResponseEntity<?> createFunction(@RequestBody FunctionRequest
+    // functionRequest) {
+    // // System.out.println("" +object.toString());
+    // // FunctionDto functionDto = (FunctionDto) object;
+    // System.out.println(functionRequest.functionDto.toString());
+    // // FunctionDto functionDto = (FunctionDto) object;
+    // System.out.println("functionDto: " + functionRequest.functionDto);
+    // try {
+    // FunctionDto createdFunction =
+    // this.functionServices.createFunction(functionRequest.functionDto,
+    // functionRequest.fileDtos);
+    // if (createdFunction != null) {
+    // System.out.println("functionDto: " + functionRequest.functionDto);
+    // return new ResponseEntity<>(createdFunction, HttpStatus.CREATED);
     // }
-
+    // return new ResponseEntity<ErrorMessage>(
+    // new ErrorMessage("Function already exist"),
+    // HttpStatus.CONFLICT);
+    // } catch (Exception e) {
+    // System.out.println(e);
+    // throw new IllegalArgumentException("test delete");
+    // }
+    // }
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    @PostMapping(consumes = { "multipart/form-data" })
+    @PostMapping(value = "", consumes = { "multipart/form-data" })
     public ResponseEntity<?> createFunction(
             @RequestPart("functionDto") String functionDtoJson,
             @RequestPart(value = "files", required = false) MultipartFile[] files,
+            // Object object
             @RequestPart(value = "fileMetadata", required = false) String fileMetadataJson) {
+        System.out.println("files: " + files);
+        // System.out.println(object);
+        System.out.println("functionDtoJson: " + functionDtoJson);
+        System.out.println("fileMetadataJson: " + fileMetadataJson);
+
         try {
+
             FunctionDto functionDto = objectMapper.readValue(functionDtoJson, FunctionDto.class);
-             // Initialize fileDtos to an empty array if files or fileMetadataJson is null
-        FileDto[] fileDtos = new FileDto[0];
-        
-        if (files != null && fileMetadataJson != null) {
-            fileDtos = objectMapper.readValue(fileMetadataJson, FileDto[].class);
+            // Initialize fileDtos to an empty array if files or fileMetadataJson is null
+            FileDto[] fileDtos = new FileDto[0];
 
-            // Ensure number of files match number of fileDtos
-            if (files.length != fileDtos.length) {
-                return new ResponseEntity<>(new ErrorMessage("Number of files does not match file metadata"),
-                        HttpStatus.BAD_REQUEST);
-            }
+            if (files != null && fileMetadataJson != null) {
+                fileDtos = objectMapper.readValue(fileMetadataJson, FileDto[].class);
 
-            // Associate each file with its respective FileDto
-            for (int i = 0; i < fileDtos.length; i++) {
-                fileDtos[i].setFile(files[i]);
+                // Ensure number of files match number of fileDtos
+                if (files != null && files.length != fileDtos.length) {
+                    return new ResponseEntity<>(new ErrorMessage("Number of files does not match file metadata"),
+                            HttpStatus.BAD_REQUEST);
+                }
+
+                // Associate each file with its respective FileDto
+                for (int i = 0; i < fileDtos.length; i++) {
+                    fileDtos[i].setFile(files[i]);
+                }
             }
-        }
 
             FunctionDto createdFunction = this.functionServices.createFunction(functionDto, fileDtos);
             if (createdFunction != null) {
@@ -93,9 +103,116 @@ public class FunctionController {
             return new ResponseEntity<>(new ErrorMessage("Function already exists"), HttpStatus.CONFLICT);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new ErrorMessage("Error creating function: " + e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorMessage("Error creating function: " + e.getCause()),
+                    HttpStatus.BAD_REQUEST);
         }
+
     }
+
+    // @PostMapping(consumes = { "multipart/form-data" })
+    // public ResponseEntity<?> createFunction(
+    // @RequestPart("functionDto") String functionDtoJson,
+    // @RequestPart(value = "files", required = false) MultipartFile[] files,
+    // @RequestPart(value = "fileMetadata", required = false) String
+    // fileMetadataJson) {
+    // System.out.println("Received files: " + (files == null ? "null" :
+    // Arrays.toString(files)));
+    // System.out.println("Received functionDtoJson: " + functionDtoJson);
+    // System.out.println("Received fileMetadataJson: " + fileMetadataJson);
+
+    // try {
+    // FunctionDto functionDto = objectMapper.readValue(functionDtoJson,
+    // FunctionDto.class);
+    // System.out.println("Parsed functionDto: " + functionDto);
+
+    // FileDto[] fileDtos = new FileDto[0];
+
+    // if (files != null && fileMetadataJson != null) {
+    // fileDtos = objectMapper.readValue(fileMetadataJson, FileDto[].class);
+    // System.out.println("Parsed fileDtos: " + Arrays.toString(fileDtos));
+
+    // if (files.length != fileDtos.length) {
+    // return new ResponseEntity<>(new ErrorMessage("Number of files does not match
+    // file metadata"),
+    // HttpStatus.BAD_REQUEST);
+    // }
+
+    // for (int i = 0; i < fileDtos.length; i++) {
+    // fileDtos[i].setFile(files[i]);
+    // }
+    // }
+
+    // FunctionDto createdFunction =
+    // this.functionServices.createFunction(functionDto, fileDtos);
+    // if (createdFunction != null) {
+    // return new ResponseEntity<>(createdFunction, HttpStatus.CREATED);
+    // }
+    // return new ResponseEntity<>(new ErrorMessage("Function already exists"),
+    // HttpStatus.CONFLICT);
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // return new ResponseEntity<>(new ErrorMessage("Error parsing JSON: " +
+    // e.getMessage()), HttpStatus.BAD_REQUEST);
+    // }
+    // }
+
+    // @PostMapping(consumes = { "multipart/form-data" })
+    // public ResponseEntity<?> createFunction(
+    // @RequestPart("functionDto") String functionDtoJson,
+    // @RequestPart(value = "files", required = false) MultipartFile[] files,
+    // @RequestPart(value = "fileMetadata", required = false) String
+    // fileMetadataJson) {
+    // try {
+    // System.out.println("Received files: " + (files == null ? "null" :
+    // Arrays.toString(files)));
+    // System.out.println("Received functionDtoJson: " + functionDtoJson);
+    // System.out.println("Received fileMetadataJson: " + fileMetadataJson);
+
+    // FunctionDto functionDto = objectMapper.readValue(functionDtoJson,
+    // FunctionDto.class);
+    // System.out.println("Parsed functionDto: " + functionDto);
+
+    // FileDto[] fileDtos = new FileDto[0];
+
+    // if (files != null && fileMetadataJson != null) {
+    // fileDtos = objectMapper.readValue(fileMetadataJson, FileDto[].class);
+    // System.out.println("Parsed fileDtos: " + Arrays.toString(fileDtos));
+
+    // if (files.length != fileDtos.length) {
+    // return new ResponseEntity<>(new ErrorMessage("Number of files does not match
+    // file metadata"),
+    // HttpStatus.BAD_REQUEST);
+    // }
+
+    // for (int i = 0; i < fileDtos.length; i++) {
+    // fileDtos[i].setFile(files[i]);
+    // }
+    // }
+
+    // FunctionDto createdFunction =
+    // this.functionServices.createFunction(functionDto, fileDtos);
+    // if (createdFunction != null) {
+    // return new ResponseEntity<>(createdFunction, HttpStatus.CREATED);
+    // }
+    // return new ResponseEntity<>(new ErrorMessage("Function already exists"),
+    // HttpStatus.CONFLICT);
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // return new ResponseEntity<>(new ErrorMessage("Error parsing JSON: " +
+    // e.getMessage()),
+    // HttpStatus.BAD_REQUEST);
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // return new ResponseEntity<>(new ErrorMessage("Error creating function: " +
+    // e.getMessage()),
+    // HttpStatus.INTERNAL_SERVER_ERROR);
+    // } finally {
+    // System.out.println("Received files: " + (files == null ? "null" :
+    // Arrays.toString(files)));
+    // System.out.println("Received functionDtoJson: " + functionDtoJson);
+    // System.out.println("Received fileMetadataJson: " + fileMetadataJson);
+    // }
+    // }
 
     @GetMapping("/task/{taskId}")
     public ResponseEntity<List<FunctionDto>> getAllFunctionsByTask(@PathVariable Long taskId) {
@@ -128,6 +245,8 @@ public class FunctionController {
     @PutMapping("/{functionId}")
     public ResponseEntity<FunctionDto> updateFunction(@PathVariable Long functionId,
             @RequestBody FunctionDto functionDto) {
+        System.out.println("functionId: " + functionId);
+        System.out.println("functionDto: " + functionDto);
         if (functionDto.getId() != functionId) {
             throw new IllegalArgumentException("Invalid id");
         }

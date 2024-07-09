@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.taskify.dtos.TaskDto;
 import com.taskify.services.TaskServices;
+import com.taskify.utils.ListResponse;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -40,8 +41,8 @@ public class TaskController {
     }
     
     @GetMapping("")
-    public ResponseEntity<List<TaskDto>> getAllTasks(@RequestParam int pageNumber) {
-        return new ResponseEntity<List<TaskDto>>(
+    public ResponseEntity<ListResponse<List<TaskDto>>> getAllTasks(@RequestParam int pageNumber) {
+        return new ResponseEntity<ListResponse<List<TaskDto>>>(
             this.taskServices.getAllTask(pageNumber), 
             HttpStatus.OK);
     }
@@ -54,15 +55,15 @@ public class TaskController {
     }
     
     @GetMapping("/type")
-    public ResponseEntity<List<TaskDto>> getTaskByType(@RequestParam String taskType, @RequestParam int pageNumber) {
-        return new ResponseEntity<List<TaskDto>>(
+    public ResponseEntity<ListResponse<List<TaskDto>>> getTaskByType(@RequestParam String taskType, @RequestParam int pageNumber) {
+        return new ResponseEntity<ListResponse<List<TaskDto>>>(
             this.taskServices.getTasksByType(taskType, pageNumber), 
             HttpStatus.OK);
     }
     
     @GetMapping("/priority")
-    public ResponseEntity<List<TaskDto>> getTaskByPriority(@RequestParam String taskPriority, @RequestParam int pageNumber) {
-        return new ResponseEntity<List<TaskDto>>(
+    public ResponseEntity<ListResponse<List<TaskDto>>> getTaskByPriority(@RequestParam String taskPriority, @RequestParam int pageNumber) {
+        return new ResponseEntity<ListResponse<List<TaskDto>>>(
             this.taskServices.getTasksByPriority(taskPriority, pageNumber), 
             HttpStatus.OK);
     }
@@ -75,8 +76,8 @@ public class TaskController {
     }
 
     @GetMapping("/completed")
-    public ResponseEntity<List<TaskDto>> getCompletedTask(@RequestParam int pageNumber) {
-        return new ResponseEntity<List<TaskDto>>(
+    public ResponseEntity<ListResponse<List<TaskDto>>> getCompletedTask(@RequestParam int pageNumber) {
+        return new ResponseEntity<ListResponse<List<TaskDto>>>(
             this.taskServices.getCompletedTasks(pageNumber), 
             HttpStatus.OK);
     }
