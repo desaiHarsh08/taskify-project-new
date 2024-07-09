@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { MdAddToPhotos } from "react-icons/md";
-import Button from '../ui/Button';
-import { IoIosPeople } from "react-icons/io";
-import { SiTask } from "react-icons/si";
 import HomeAction from './HomeAction';
 import AdditionalStats from './AdditionalStats';
 import TodayActivities from './TodayActivities';

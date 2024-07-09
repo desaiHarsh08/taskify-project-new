@@ -4,13 +4,21 @@ import { useNavigate } from 'react-router-dom'
 import { fetchAllFunctionsByTaskId } from '../../apis/functionApis';
 import FunctionCard from './FunctionCard';
 
+// eslint-disable-next-line react/prop-types
 const FunctionList = ({ task }) => {
     const navigate = useNavigate();
 
     const [functionsArr, setFunctionsArr] = useState([]);
 
     useEffect(() => {
-        setFunctionsArr(task?.functions)
+        if (task) {
+            const fnArr = [];
+            // eslint-disable-next-line react/prop-types
+            for (let i = task?.functions.length - 1; i >= 0; i--) {
+                fnArr.push(task.functions[i]);
+            }
+            setFunctionsArr(fnArr);
+        }
     }, [task]);
 
     const handleFunctionClick = (functionId) => {

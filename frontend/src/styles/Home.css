@@ -1,3 +1,18 @@
+#loading-bar {
+    transition: all .5s ease-in-out;
+    animation: loadingBar .7s  forwards infinite;
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+}
+
+@keyframes loadingBar {
+    from {
+        transform: translateX(0px);
+    }
+    to {
+        transform: translateX(100vw)
+    }
+}
+
 #main-container {
     height: calc(100% - 52.75px);
 }

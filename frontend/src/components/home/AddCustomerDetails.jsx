@@ -1,119 +1,162 @@
-import React from 'react'
-
-const AddCustomerDetails = ({customerInfo, setCustomerInfo}) => {
+// eslint-disable-next-line react/prop-types
+const AddCustomerDetails = ({ customerInfo, setCustomerInfo }) => {
     const handleCustomerChange = (e) => {
         const { name, value } = e.target;
 
-        setCustomerInfo(prev => ({...prev, [name]: value}));
-    }
-  return (
-    <div className="modal fade" id="customerInfoModal" aria-hidden="true" aria-labelledby="customerInfoModal" tabIndex="-1">
+        setCustomerInfo((prev) => ({ ...prev, [name]: value }));
+    };
+
+    return (
+        <div
+            className="modal fade"
+            id="customerInfoModal"
+            aria-hidden="true"
+            aria-labelledby="customerInfoModal"
+            tabIndex="-1"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+        >
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="customerInfoModalToggleLabel2">Customer Information</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1
+                            className="modal-title fs-5"
+                            id="customerInfoModalToggleLabel2"
+                        >
+                            Customer Information
+                        </h1>
+                        <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
                     </div>
-                    <div className="modal-body" >
-                        <div className='d-flex flex-column gap-2'>
-                            <div class="form-group">
-                                <label for="customerTmpId">Customer Id</label>
-                                <input 
-                                    type="text" 
-                                    value={customerInfo?.customerTmpId} 
-                                    name='customerTmpId'
+                    <div className="modal-body">
+                        <div className="d-flex flex-column gap-2">
+                            <div className="form-group">
+                                <label htmlFor="customerTmpId">
+                                    Customer Id
+                                </label>
+                                <input
+                                    type="text"
+                                    // eslint-disable-next-line react/prop-types
+                                    value={customerInfo?.customerTmpId}
+                                    name="customerTmpId"
                                     onChange={handleCustomerChange}
-                                    class="form-control" 
-                                    id="customerTmpId"  
+                                    className="form-control"
+                                    id="customerTmpId"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input 
-                                    type="text" 
-                                    name='email'
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                    type="text"
+                                    name="email"
+                                    // eslint-disable-next-line react/prop-types
                                     value={customerInfo?.email}
                                     onChange={handleCustomerChange}
-                                    class="form-control" 
-                                    id="email" 
+                                    className="form-control"
+                                    id="email"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="customerName">Name of the Customer</label>
-                                <input 
-                                    type="text" 
-                                    name='customerName'
+                            <div className="form-group">
+                                <label htmlFor="customerName">
+                                    Name of the Customer
+                                </label>
+                                <input
+                                    type="text"
+                                    name="customerName"
+                                    // eslint-disable-next-line react/prop-types
                                     value={customerInfo?.customerName}
                                     onChange={handleCustomerChange}
-                                    class="form-control" 
-                                    id="customerName" 
+                                    className="form-control"
+                                    id="customerName"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="personOfContact">Person of Contact</label>
-                                <input 
-                                    type="text" 
-                                    name='personOfContact'
+                            <div className="form-group">
+                                <label htmlFor="personOfContact">
+                                    Person of Contact
+                                </label>
+                                <input
+                                    type="text"
+                                    name="personOfContact"
+                                    // eslint-disable-next-line react/prop-types
                                     value={customerInfo?.personOfContact}
                                     onChange={handleCustomerChange}
-                                    class="form-control" 
-                                    id="personOfContact" 
+                                    className="form-control"
+                                    id="personOfContact"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="phone">Mobile Number</label>
-                                <input 
-                                    type="text" 
-                                    name='phone'
+                            <div className="form-group">
+                                <label htmlFor="phone">Mobile Number</label>
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    // eslint-disable-next-line react/prop-types
                                     value={customerInfo?.phone}
                                     onChange={handleCustomerChange}
-                                    class="form-control" 
-                                    id="phone" 
+                                    className="form-control"
+                                    id="phone"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <textarea 
-                                    value={customerInfo?.address} 
-                                    name='address'
+                            <div className="form-group">
+                                <label htmlFor="address">Address</label>
+                                <textarea
+                                    // eslint-disable-next-line react/prop-types
+                                    value={customerInfo?.address}
+                                    name="address"
                                     onChange={handleCustomerChange}
-                                    class="form-control" 
-                                    id="address" 
+                                    className="form-control"
+                                    id="address"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="city">City</label>
-                                <input 
-                                    type='text' 
-                                    name='city'
+                            <div className="form-group">
+                                <label htmlFor="city">City</label>
+                                <input
+                                    type="text"
+                                    name="city"
+                                    // eslint-disable-next-line react/prop-types
                                     value={customerInfo?.city}
                                     onChange={handleCustomerChange}
-                                    class="form-control" 
-                                    id="city" 
+                                    className="form-control"
+                                    id="city"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="pincode">Pincode</label>
-                                <input 
-                                    type='text' 
-                                    name='pincode'
+                            <div className="form-group">
+                                <label htmlFor="pincode">Pincode</label>
+                                <input
+                                    type="text"
+                                    name="pincode"
+                                    // eslint-disable-next-line react/prop-types
                                     value={customerInfo?.pincode}
                                     onChange={handleCustomerChange}
-                                    class="form-control" 
-                                    id="pincode" 
+                                    className="form-control"
+                                    id="pincode"
                                 />
                             </div>
                         </div>
-
                     </div>
                     <div className="modal-footer">
-                        <button className="btn btn-secondary" data-bs-target="#inputTaskPriorityModal" data-bs-toggle="modal">Back</button>
-                        <button className="btn btn-primary" data-bs-target="#taskInfoDetailsModal" data-bs-toggle="modal">Continue</button>
+                        <button
+                            className="btn btn-secondary"
+                            data-bs-target="#inputTaskPriorityModal"
+                            data-bs-toggle="modal"
+                        >
+                            Back
+                        </button>
+                        <button
+                            className="btn btn-primary"
+                            data-bs-target="#taskInfoDetailsModal"
+                            data-bs-toggle="modal"
+                        >
+                            Continue
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-  )
-}
+    );
+};
 
-export default AddCustomerDetails
+export default AddCustomerDetails;

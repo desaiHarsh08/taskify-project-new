@@ -1,51 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import React, { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { MdAddToPhotos } from "react-icons/md";
-import Button from '../ui/Button';
+import Button from "../ui/Button";
 import { IoIosPeople } from "react-icons/io";
 import { SiTask } from "react-icons/si";
-import MetadataStat from './MetadataStat';
-import MyModal from '../ui/MyModal';
-import SelectTaskType from './SelectTaskType';
-import SelectTaskPriority from './SelectTaskPriority';
-import AddCustomerDetails from './AddCustomerDetails';
-import TaskInfo from './TaskInfo';
-import AssignTask from './AssignTask';
-import { getStats } from '../../apis/taskApis';
-import MyToast from '../ui/MyToast';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../app/features/userSlice';
+import MetadataStat from "./MetadataStat";
+import MyModal from "../ui/MyModal";
+import SelectTaskType from "./SelectTaskType";
+import SelectTaskPriority from "./SelectTaskPriority";
+import AddCustomerDetails from "./AddCustomerDetails";
+import TaskInfo from "./TaskInfo";
+import AssignTask from "./AssignTask";
+import { getStats } from "../../apis/taskApis";
+import MyToast from "../ui/MyToast";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../app/features/userSlice";
+import { useUser } from "../../hooks/useUser";
 
 const HomeAction = () => {
-    const user = useSelector(selectUser);
+    const user = useUser();
 
     const [showToast, setShowToast] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState("");
     const [taskPriority, setTaskPriority] = useState("NORMAL");
-    const [selectedTaskType, setSelectedTaskType] = useState("NEW_PUMP_INQUIRY");
+    const [selectedTaskType, setSelectedTaskType] =
+        useState("NEW_PUMP_INQUIRY");
 
     const [customerInfo, setCustomerInfo] = useState({
-        customerName: '',
-        customerTmpId: '',
-        email: '',
-        personOfContact: '',
-        phone: '',
-        address: '',
-        city: '',
-        pincode: '',
+        customerName: "",
+        customerTmpId: "",
+        email: "",
+        personOfContact: "",
+        phone: "",
+        address: "",
+        city: "",
+        pincode: "",
     });
     const [taskInfo, setTaskInfo] = useState({
-        pumpType: '',
-        pumpManufacturer: '',
-        specification: '',
-        problemDescription: '',
+        pumpType: "",
+        pumpManufacturer: "",
+        specification: "",
+        problemDescription: "",
         customerModel: customerInfo,
         requirements: "",
-        createdByUserId: user?.id
+        createdByUserId: user?.id,
     });
 
     return (
-        <Row className='m-0 gap-3'>
+        <Row className="m-0 gap-3">
             <Col className="p-0 ">
                 <div className="card" style={{ minHeight: "170px" }}>
                     <div className="card-header">Task Action</div>
@@ -59,14 +61,13 @@ const HomeAction = () => {
                             className="btn btn-primary"
                             data-bs-target="#inputTaskTypeModal"
                             data-bs-toggle="modal"
-                        >Create Task
+                        >
+                            Create Task
                         </button>
                         <SelectTaskType
-                            selectedTaskType={selectedTaskType}
                             setSelectedTaskType={setSelectedTaskType}
                         />
                         <SelectTaskPriority
-                            taskPriority={taskPriority}
                             setTaskPriority={setTaskPriority}
                         />
                         <AddCustomerDetails
@@ -74,8 +75,8 @@ const HomeAction = () => {
                             setCustomerInfo={setCustomerInfo}
                         />
                         <TaskInfo
+                        taskInfo={taskInfo}
                             selectedTaskType={selectedTaskType}
-                            taskInfo={taskInfo}
                             setTaskInfo={setTaskInfo}
                         />
                         <AssignTask
@@ -86,15 +87,20 @@ const HomeAction = () => {
                             setShowToast={setShowToast}
                             setMessage={setMessage}
                         />
-
                     </div>
                 </div>
             </Col>
             <MetadataStat />
 
-            {showToast && <MyToast show={showToast} message={message} onClose={() =>setShowToast(false)} />}
+            {showToast && (
+                <MyToast
+                    show={showToast}
+                    message={message}
+                    onClose={() => setShowToast(false)}
+                />
+            )}
         </Row>
-    )
-}
+    );
+};
 
-export default HomeAction
+export default HomeAction;

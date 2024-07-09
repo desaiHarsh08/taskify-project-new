@@ -1,16 +1,18 @@
-import React from 'react'
-import { Pagination } from 'react-bootstrap'
+import React from "react";
+import { Pagination } from "react-bootstrap";
 
-const MyPagination = ({ lastPage, pageNumber, totalEntries, totalPages, setPageNumber }) => {
-    const pages = Array.isArray(totalPages) ? totalPages : Array.from({ length: totalPages }, (_, i) => i + 1);
+const MyPagination = ({ listData, loadPage, setLoadPage }) => {
+
+    const pages = Array.from({ length: listData?.totalPages }, (_, i) => i + 1);
+
     return (
         <div>
             <Pagination>
                 {pages.map((page) => (
-                    <Pagination.Item 
-                        key={page} 
-                        active={page === pageNumber + 1}
-                        onClick={() => setPageNumber(page - 1)}
+                    <Pagination.Item
+                        key={page}
+                        active={page === loadPage + 1}
+                        onClick={() => setLoadPage(page - 1)}
                     >
                         {page}
                     </Pagination.Item>
@@ -18,7 +20,7 @@ const MyPagination = ({ lastPage, pageNumber, totalEntries, totalPages, setPageN
             </Pagination>
             <br />
         </div>
-    )
-}
+    );
+};
 
-export default MyPagination
+export default MyPagination;

@@ -6,7 +6,7 @@ export const createFieldColumn = async (newFieldColumn) => {
         newFieldColumn,
         {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             }
         }, 
         );

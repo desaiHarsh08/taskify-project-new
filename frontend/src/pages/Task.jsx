@@ -5,10 +5,13 @@ import FunctionList from '../components/task/FunctionList';
 import { useParams } from 'react-router-dom';
 import { fetchTaskById } from '../apis/taskApis';
 import AddFunction from './AddFunction';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectFetchAgainStatus } from '../app/features/fetchAgainSlice';
+import { setLoadingState } from '../app/features/loadingSlice';
 
 const Task = () => {
+    const dispatch = useDispatch();
+
     const { taskId } = useParams();
 
     const [task, setTask] = useState();
@@ -20,7 +23,9 @@ const Task = () => {
     }, [fetchAgainStatus]);
 
     const fetchTask = async () => {
+         dispatch(setLoadingState(true));
         const { data, error } = await fetchTaskById(taskId);
+         dispatch(setLoadingState(false));
         console.log("task:", data)
         setTask(data);
     }
@@ -32,7 +37,7 @@ const Task = () => {
                     <TaskDetails task={task} setTask={setTask} />
                 </Col>}
                 <Col className='p-2 col-12 col-sm-8 h-100 overflow-auto'>
-                    <AddFunction task={task} fetchTask={fetchTask} />
+                    <AddFunction task={task} setTask={setTask} fetchTask={fetchTask} />
                     <FunctionList task={task} />
                 </Col>
                 {window.innerWidth > 575 && <Col className='p-0 col-12 col-sm-4 overflow-auto h-100'>

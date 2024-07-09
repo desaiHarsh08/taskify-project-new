@@ -24,7 +24,7 @@ const Sidebar = ({ }) => {
         <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark h-100">
             <ul className="nav nav-pills flex-column mb-auto" style={{ fontSize: "16px" }}>
                 {sideNavArr.map((link) => {
-                    if (link.label === "Logut") {
+                    if (link.label === "Logout") {
                         localStorage.clear();
                         return (
                             <li key={`sidelink-${link.path}`} className="nav-item d-flex px-5">

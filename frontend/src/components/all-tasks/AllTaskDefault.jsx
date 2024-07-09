@@ -1,15 +1,23 @@
-import React, { useEffect } from 'react'
-import { Pagination, Table } from 'react-bootstrap'
-import TaskRow from './TaskRow'
-import { useState } from 'react';
-import FilterTaskTabs from './FilterTaskTabs';
-import TaskList from './TaskList';
-import MyPagination from '../ui/MyPagination';
-import { fetchAllTasks } from '../../apis/taskApis';
+import React, { useEffect } from "react";
+import { Pagination, Table } from "react-bootstrap";
+import TaskRow from "./TaskRow";
+import { useState } from "react";
+import FilterTaskTabs from "./FilterTaskTabs";
+import TaskList from "./TaskList";
+import MyPagination from "../ui/MyPagination";
+import { fetchAllTasks } from "../../apis/taskApis";
+import { useDispatch } from "react-redux";
+import { setLoadingState } from "../../app/features/loadingSlice";
 
 const AllTaskDefault = () => {
+    const dispatch = useDispatch();
+
     const [selectedTab, setSelectedTab] = useState();
     const [taskTemplateArr, setTaskTemplateArr] = useState([]);
+
+    const [listData, setListData] = useState();
+    const [loadPage, setLoadPage] = useState(0);
+
     const [allTask, setAllTask] = useState([]);
     const [taskArr, setTaskArr] = useState([]);
     const [tabArr, setTabArr] = useState([
@@ -24,26 +32,31 @@ const AllTaskDefault = () => {
     // Update tasks and tab counts when allTask changes
     useEffect(() => {
         (async () => {
-            const { data, error } = await fetchAllTasks(0);
-            console.log(data)
-            setAllTask(data);
-            const newTabArr = tabArr.map(tab => filterTask(tab, data));
+            dispatch(setLoadingState(true));
+            const { data, error } = await fetchAllTasks(loadPage);
+            dispatch(setLoadingState(false));
+            console.log(data, data.content);
+            setListData(data);
+            setAllTask(data?.content);
+            const newTabArr = tabArr.map((tab) => filterTask(tab, data?.content));
             setTabArr(newTabArr);
-            setTaskArr(data); // Initially display all tasks
-
+            setTaskArr(data?.content); // Initially display all tasks
         })();
-    }, []);
+    }, [loadPage]);
 
     // Filter tasks based on the selected tab
     const filterTask = (tab, allTask) => {
+        console.log(allTask)
         if (tab.tabLabel === "All Task") {
             tab.totalTask = allTask.length;
         } else if (tab.tabLabel === "Completed") {
-            tab.totalTask = allTask.filter(ele => ele.isCompleted).length;
+            tab.totalTask = allTask.filter((ele) => ele.isCompleted).length;
         } else if (tab.tabLabel === "Pending") {
-            tab.totalTask = allTask.filter(ele => !ele.isCompleted).length;
+            tab.totalTask = allTask.filter((ele) => !ele.isCompleted).length;
         } else if (["HIGH", "MEDIUM", "NORMAL"].includes(tab.tabLabel)) {
-            tab.totalTask = allTask.filter(ele => ele.taskPriority === tab.tabLabel).length;
+            tab.totalTask = allTask.filter(
+                (ele) => ele.taskPriority === tab.tabLabel
+            ).length;
         }
         return tab;
     };
@@ -62,40 +75,44 @@ const AllTaskDefault = () => {
         if (selectedTab.tabLabel === "All Task") {
             setTaskArr(allTask);
         } else if (selectedTab.tabLabel === "Completed") {
-            setTaskArr(allTask.filter(ele => ele.isCompleted));
+            setTaskArr(allTask.filter((ele) => ele.isCompleted));
         } else if (selectedTab.tabLabel === "Pending") {
-            setTaskArr(allTask.filter(ele => !ele.isCompleted));
-        } else if (["HIGH", "MEDIUM", "NORMAL"].includes(selectedTab.tabLabel)) {
-            setTaskArr(allTask.filter(ele => ele.taskPriority === selectedTab.tabLabel));
+            setTaskArr(allTask.filter((ele) => !ele.isCompleted));
+        } else if (
+            ["HIGH", "MEDIUM", "NORMAL"].includes(selectedTab.tabLabel)
+        ) {
+            setTaskArr(
+                allTask.filter(
+                    (ele) => ele.taskPriority === selectedTab.tabLabel
+                )
+            );
         }
     };
 
     return (
         <>
-            <div className='border-bottom  my-3 pb-2'>
+            <div className="border-bottom  my-3 pb-2">
                 <h2>All Tasks</h2>
                 <p>View all of your task here</p>
-
             </div>
             <div className="w-100 overflow-auto">
                 <FilterTaskTabs
                     handleTabClick={handleTabClick}
-                    setSelectedTab={setSelectedTab}
                     tabArr={tabArr}
-                    setTabArr={setTabArr}
                 />
             </div>
             <div className="w-100  overflow-y-auto">
-                {taskArr.length > 0 ?
-                    (<>
+                {taskArr.length > 0 ? (
+                    <>
                         <TaskList taskArr={taskArr} />
-                        <MyPagination />
-                    </>)
-                    : <p className='px-4'>No task!</p>
-                }
+                        <MyPagination listData={listData} loadPage={loadPage} setLoadPage={setLoadPage} />
+                    </>
+                ) : (
+                    <p className="px-4">No task!</p>
+                )}
             </div>
         </>
-    )
-}
+    );
+};
 
-export default AllTaskDefault
+export default AllTaskDefault;
