@@ -35,7 +35,7 @@ const SelectTaskPriority = ({ setTaskPriority }) => {
                             onChange={(e) => setTaskPriority(e.target.value)}
                         >
                             <option value="NORMAL">NORMAL</option>
-                            <option value="INTERMEDIATE">MEDIUM</option>
+                            <option value="MEDIUM">MEDIUM</option>
                             <option value="HIGH">HIGH</option>
                         </Form.Select>
                     </div>

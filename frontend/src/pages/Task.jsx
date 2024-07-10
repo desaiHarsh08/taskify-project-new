@@ -16,32 +16,61 @@ const Task = () => {
 
     const [task, setTask] = useState();
 
+    const [taskIdFormat, setTaskIdFormat] = useState("");
+
     const fetchAgainStatus = useSelector(selectFetchAgainStatus);
 
     useEffect(() => {
         fetchTask();
-    }, [fetchAgainStatus]);
+    }, [fetchAgainStatus, taskIdFormat]);
 
     const fetchTask = async () => {
          dispatch(setLoadingState(true));
         const { data, error } = await fetchTaskById(taskId);
          dispatch(setLoadingState(false));
         console.log("task:", data)
+        
+
+
+        const date = new Date(data?.createdDate);
+        console.log(date);
+        let tmpTaskId = "";
+        if (data?.taskType == "SERVICE_TASK") {
+            tmpTaskId = "S";
+        } else {
+            tmpTaskId = "N";
+        }
+        tmpTaskId += `${date.getFullYear().toString().substring(2)}${(
+            date.getMonth() + 1
+        )
+            .toString()
+            .padStart(2, 0)}${taskId.toString().padStart(3, 0)}`;
+
+
+        console.log("tmpTaskId:", tmpTaskId);
+
+        setTaskIdFormat(tmpTaskId);
+
+
         setTask(data);
     }
+
+    
+
 
     return (
         <Container fluid className='p-0 h-100'>
             <Row id='task-container' className='m-0 h-100'>
+                {console.log("in jsx, taskIdFormat:", taskIdFormat)}
                 {window.innerWidth < 575 && <Col className='p-0 col-12 col-sm-4 overflow-auto h-100'>
-                    <TaskDetails task={task} setTask={setTask} />
+                    {taskIdFormat && <TaskDetails taskIdFormat={taskIdFormat} task={task} setTask={setTask} />}
                 </Col>}
                 <Col className='p-2 col-12 col-sm-8 h-100 overflow-auto'>
                     <AddFunction task={task} setTask={setTask} fetchTask={fetchTask} />
                     <FunctionList task={task} />
                 </Col>
                 {window.innerWidth > 575 && <Col className='p-0 col-12 col-sm-4 overflow-auto h-100'>
-                    <TaskDetails task={task} setTask={setTask} />
+                    <TaskDetails taskIdFormat={taskIdFormat} task={task} setTask={setTask} />
                 </Col>}
             </Row>
         </Container>

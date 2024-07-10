@@ -10,6 +10,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setToken: (state, action) => {
+            console.log("in authSlice, token:", action.payload);
             state.token = action.payload;
             localStorage.setItem("token", JSON.stringify(action.payload));
         },

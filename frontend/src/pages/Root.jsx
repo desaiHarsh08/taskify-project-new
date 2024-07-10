@@ -27,7 +27,7 @@ const Root = () => {
         }
         const { data, error } = await doLogin(credentials);
         console.log(data, error);
-        if (data) {
+        if (data !==  null || data !== undefined) {
             dispatch(setToken(data));
             navigate('/home', { replace: true});
         } else {

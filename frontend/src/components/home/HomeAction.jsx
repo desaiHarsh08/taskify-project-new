@@ -19,6 +19,7 @@ import { useUser } from "../../hooks/useUser";
 
 const HomeAction = () => {
     const user = useUser();
+    console.log(user)
 
     const [showToast, setShowToast] = useState(false);
     const [message, setMessage] = useState("");

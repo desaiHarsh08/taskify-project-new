@@ -671,7 +671,7 @@ const AddFunction = ({ task, setTask, fetchTask }) => {
 
     const handleAssignContinue = async () => {
         setShowAssignTaskModal(false);
-        setShowAddFunctionFieldModal(false);
+        setShowAddFunctionModal(false);
 
         console.log(selectedUser, user?.id, usersArr);
         if (selectedUser !== user?.id) {
@@ -695,7 +695,7 @@ const AddFunction = ({ task, setTask, fetchTask }) => {
             dispatch(setFetchAgainStatus())
         } else {
             // Assign to self
-            setShowAddFunctionModal(true);
+            setShowAddFunctionFieldModal(true);
         }
     };
 
@@ -707,12 +707,31 @@ const AddFunction = ({ task, setTask, fetchTask }) => {
             {!task?.isCompleted && (
                 <Button
                     variant="info"
-                    handleClick={() => setShowAssignTaskModal(true)}
+                    handleClick={() => setShowAddFunctionModal(true)}
                     disabled={addFunctionBtn}
                 >
                     Add
                 </Button>
             )}
+            <MyModal
+                show={showAddFunctionModal}
+                onHide={() => setShowAddFunctionModal(false)}
+                modalHeading="Add Function"
+                showModalFooter={true}
+                showBackBtn={false}
+                handleContinue={() => {
+                    setShowAddFunctionModal(false);
+                    setShowAssignTaskModal(true);
+                    setShowAddFunctionFieldModal(false);
+                }}
+            >
+                <SelectFunction
+                    functionFormat={functionFormat}
+                    selectedFunctionFormat={selectedFunctionFormat}
+                    handleChange={handleChange}
+                />
+            </MyModal>
+
             <MyModal
                 show={showAssignTaskModal}
                 onHide={() => {
@@ -721,7 +740,11 @@ const AddFunction = ({ task, setTask, fetchTask }) => {
                 }}
                 modalHeading="Assign Task"
                 showModalFooter={true}
-                showBackBtn={false}
+                showBackBtn={true}
+                handleBack={() => {
+                    setShowAssignTaskModal(false)
+                    setShowAddFunctionModal(true)
+                }}
                 handleContinue={handleAssignContinue}
             >
                 <AssignTask
@@ -735,29 +758,7 @@ const AddFunction = ({ task, setTask, fetchTask }) => {
                     setSelectedUser={setSelectedUser}
                 />
             </MyModal>
-            <MyModal
-                show={showAddFunctionModal}
-                onHide={() => setShowAddFunctionModal(false)}
-                modalHeading="Add Function"
-                showModalFooter={true}
-                showBackBtn={true}
-                handleBack={() => {
-                    setShowAssignTaskModal(true);
-                    setShowAddFunctionFieldModal(false);
-                    setShowAddFunctionModal(false);
-                }}
-                handleContinue={() => {
-                    setShowAddFunctionModal(false);
-                    setShowAssignTaskModal(false);
-                    setShowAddFunctionFieldModal(true);
-                }}
-            >
-                <SelectFunction
-                    functionFormat={functionFormat}
-                    selectedFunctionFormat={selectedFunctionFormat}
-                    handleChange={handleChange}
-                />
-            </MyModal>
+
             <MyModal
                 show={showAddFunctionFieldModal}
                 onHide={() => setShowAddFunctionFieldModal(false)}
@@ -766,8 +767,8 @@ const AddFunction = ({ task, setTask, fetchTask }) => {
                 showBackBtn={true}
                 handleBack={() => {
                     setShowAddFunctionFieldModal(false);
-                    setShowAssignTaskModal(false);
-                    setShowAddFunctionModal(true);
+                    setShowAssignTaskModal(true);
+                    setShowAddFunctionModal(false);
                 }}
                 handleContinue={() => {
                     setShowAddFunctionModal(false);

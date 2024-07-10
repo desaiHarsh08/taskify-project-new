@@ -8,6 +8,7 @@ import { deleteTask, updateTask } from '../../apis/taskApis'
 import { useNavigate } from 'react-router-dom'
 import { setFetchAgainStatus } from '../../app/features/fetchAgainSlice'
 import { useDispatch } from 'react-redux'
+import { setLoadingState } from '../../app/features/loadingSlice'
 
 const TaskActions = ({
     task, setTask, allUsers
@@ -37,7 +38,9 @@ const TaskActions = ({
     const handleDoneTask = async (task) => {
         const updatedTask = { ...task, isCompleted: true }
         console.log(updatedTask)
+        dispatch(setLoadingState(true));
         const { data, error } = await updateTask(updatedTask);
+        dispatch(setLoadingState(false));
         console.log("done: ", data);
         if (data) {
             setShowToast(true);

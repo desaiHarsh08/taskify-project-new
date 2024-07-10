@@ -20,6 +20,7 @@ import MyModal from "../components/ui/MyModal";
 import InputFunctionField from "../components/task/InputFunctionField";
 import { setLoadingState } from "../app/features/loadingSlice";
 import { createFieldColumn } from "../apis/fieldColumnApis";
+import { getFormattedDate } from "../utils/helper";
 
 const FunctionView = () => {
     const { taskId, functionId } = useParams();
@@ -251,34 +252,41 @@ const FunctionView = () => {
                 </Badge>
                 <br />
                 {!taskFunction?.isCompleted && (
-                    <div className="mr-2 mt-3 d-flex align-items-center gap-2">
-                        <Button
-                            handleClick={() => setShowDone(true)}
-                            size="btn-sm"
-                            variant={`${
-                                taskFunction?.isCompleted
-                                    ? "success"
-                                    : "secondary"
-                            }`}
-                            disabled={!canMarkFunction}
-                        >
-                            Done
-                        </Button>
-                        <AlertDialog
-                            show={showDone}
-                            onHide={() => setShowDone(false)}
-                            alertHeading="Done?"
-                            message="Mark the function as done!"
-                            handleContinue={handleDoneFunction}
-                        />
+                    <>
+                        <p className="d-flex gap-2 my-2">
+                            <p>Due Date: </p>
+                            <p>{getFormattedDate(taskFunction?.dueDate)}</p>
+                        </p>
 
-                        {/* <Button
+                        <div className="mr-2 mt-3 d-flex align-items-center gap-2">
+                            <Button
+                                handleClick={() => setShowDone(true)}
+                                size="btn-sm"
+                                variant={`${
+                                    taskFunction?.isCompleted
+                                        ? "success"
+                                        : "secondary"
+                                }`}
+                                disabled={!canMarkFunction}
+                            >
+                                Done
+                            </Button>
+                            <AlertDialog
+                                show={showDone}
+                                onHide={() => setShowDone(false)}
+                                alertHeading="Done?"
+                                message="Mark the function as done!"
+                                handleContinue={handleDoneFunction}
+                            />
+
+                            {/* <Button
                             handleClick={() => setShowDE(true)}
                             size='btn-sm'
                             variant={`danger`}
                             disabled={taskFunction?.isCompleted}
                         >Delete</Button> */}
-                    </div>
+                        </div>
+                    </>
                 )}
             </div>
             <div className="my-2">
