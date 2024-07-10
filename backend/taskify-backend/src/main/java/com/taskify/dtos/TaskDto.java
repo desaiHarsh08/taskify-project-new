@@ -1,6 +1,6 @@
 package com.taskify.dtos;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import com.taskify.constants.TaskPriority;

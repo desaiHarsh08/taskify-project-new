@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.taskify.constants.Department;
-import com.taskify.models.UserModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

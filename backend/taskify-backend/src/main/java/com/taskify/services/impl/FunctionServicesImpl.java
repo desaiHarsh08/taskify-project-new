@@ -68,8 +68,8 @@ public class FunctionServicesImpl implements FunctionServices {
         TaskModel taskModel = this.taskRepository.findById(functionDto.getTaskId()).orElseThrow(
                 () -> new ResourceNotFoundException("No task exist for id: " + functionDto.getTaskId()));
 
-                System.out.println("created user id: " + functionDto.getCreatedByUserId());
-                System.out.println("assigned user id: " + functionDto.getAssignedUserId());
+                // System.out.println("created user id: " + functionDto.getCreatedByUserId());
+                // System.out.println("assigned user id: " + functionDto.getAssignedUserId());
         UserModel createdUser = this.userRepository.findById(functionDto.getCreatedByUserId()).orElseThrow(
                 () -> new ResourceNotFoundException("No user exist for id: " + functionDto.getCreatedByUserId()));
         UserModel assignedUser = this.userRepository.findById(functionDto.getAssignedUserId()).orElseThrow(

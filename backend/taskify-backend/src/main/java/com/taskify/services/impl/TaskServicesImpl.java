@@ -75,12 +75,6 @@ public class TaskServicesImpl implements TaskServices {
 
         TaskDto createdTaskDto = this.taskModelToDto(this.taskRepository.save(taskModel));
 
-        // Send email
-        UserModel userModel = this.userRepository.findById(taskModel.getAssignedUser().getId()).orElse(null);
-        if (userModel == null) {
-            return createdTaskDto;
-        }
-
         // Create a log
         ActivityLogModel activityLogModel = new ActivityLogModel();
         activityLogModel.setDate(new Date());
@@ -92,7 +86,7 @@ public class TaskServicesImpl implements TaskServices {
 
         String subject = "Task Assignment Notification from Taskify Software";
         String body = generateCreateTaskEmail(taskModel, userModel);
-        this.emailService.sendSimpleMessage(userModel.getEmail(), subject, body);
+        this.emailService.sendSimpleMessage(assignUser.getEmail(), subject, body);
 
         return createdTaskDto;
     }
@@ -113,29 +107,6 @@ public class TaskServicesImpl implements TaskServices {
         return body;
     }
 
-
-    //  public ListResponse<List<StudentDto>> getAllStudents(int pageNumber) {
-    //     if (pageNumber == 0) {
-    //         throw new IllegalArgumentException("Page number can't be less than 1.");
-    //     }
-
-    //     Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE);
-
-    //     Page<StudentModel> studentPage = this.studentRepository.findAll(pageable);
-
-    //     List<StudentModel> studentModelList = studentPage.getContent();
-
-    //     // Prepare the response
-    //     ListResponse<List<StudentDto>> listResponse = new ListResponse(
-    //             pageNumber,
-    //             PAGE_SIZE,
-    //             studentPage.getTotalPages(),
-    //             studentPage.getTotalElements(),
-    //             this.stundentModelListToDtoList(studentModelList));
-
-    //     return listResponse;
-    // }
-
     @Override
     public ListResponse<List<TaskDto>> getAllTask(int pageNumber) {
         Pageable pageable = this.getPageable(pageNumber);
@@ -149,7 +120,6 @@ public class TaskServicesImpl implements TaskServices {
                 taskPage.getTotalPages(),
                 taskPage.getTotalElements(),
                 this.taskModeListToDtoList(taskModelList));
-
 
         return listResponse;
     }
@@ -278,10 +248,10 @@ public class TaskServicesImpl implements TaskServices {
             foundTaskModel.setSpecification(taskDto.getSpecification());
             foundTaskModel.setTaskPriority(taskDto.getTaskPriority());
 
-            // If assigning the task to another user
-            if (!taskDto.getAssignedUserId().equals(foundTaskModel.getAssignedUser().getId())) {
-                foundTaskModel.setAssignedUser(assignedUser);
 
+            // If assigning the task to another user
+            if (!taskDto.getAssignedUserId().equals(foundTaskModel.getAssignedUser().getId()) && !taskDto.getIsCompleted()) {
+                foundTaskModel.setAssignedUser(assignedUser);
             }
 
             // Create a log
