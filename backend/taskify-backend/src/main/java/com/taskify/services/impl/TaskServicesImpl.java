@@ -85,7 +85,7 @@ public class TaskServicesImpl implements TaskServices {
         this.activityLogServices.createLog(activityLogModel);
 
         String subject = "Task Assignment Notification from Taskify Software";
-        String body = generateCreateTaskEmail(taskModel, userModel);
+        String body = generateCreateTaskEmail(taskModel, createdByUser);
         this.emailService.sendSimpleMessage(assignUser.getEmail(), subject, body);
 
         return createdTaskDto;
